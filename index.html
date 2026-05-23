@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Academic & Creative Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --paper: #f5f0e8;
+    --warm-mid: #c8b89a;
+    --accent: #8b4a2f;
+    --accent-light: #d4956a;
+    --muted: #7a6f63;
+    --rule: rgba(26,23,20,0.12);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Instrument Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    padding: 8rem 4rem 6rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s ease forwards;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s ease forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 300;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.45s ease forwards;
+  }
+
+  .hero-bio {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 38ch;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.75s ease forwards;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.8rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    transition: all 0.25s;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn.filled {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+
+  .btn.filled:hover {
+    background: #6d3820;
+    border-color: #6d3820;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.5s ease forwards;
+  }
+
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e8dfc9 0%, #d4c4a8 40%, #c8b08a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-image-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.08) 40px,
+      rgba(255,255,255,0.08) 41px
+    );
+  }
+
+  .placeholder-text {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(26,23,20,0.35);
+    text-align: center;
+    z-index: 1;
+  }
+
+  /* ── SECTION COMMON ── */
+  section {
+    padding: 7rem 6rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── RESEARCH ── */
+  .research-grid {
+    display: grid;
+    gap: 0;
+  }
+
+  .paper-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-start: start;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .paper-item:first-child { border-top: 1px solid var(--rule); }
+
+  .paper-item:hover { padding-left: 1rem; transition: padding 0.3s, background 0.2s; }
+
+  .paper-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .paper-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+  }
+
+  .paper-venue {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .paper-link {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+    align-self: center;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 0.8rem;
+    transition: all 0.2s;
+  }
+
+  .paper-link:hover {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* ── TEACHING ── */
+  .teaching-section {
+    background: linear-gradient(180deg, transparent, rgba(200,184,154,0.12));
+  }
+
+  .teaching-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .teaching-card {
+    border: 1px solid var(--rule);
+    padding: 2.5rem;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .teaching-card:hover {
+    border-color: var(--warm-mid);
+    transform: translateY(-3px);
+  }
+
+  .teaching-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height 0.4s;
+  }
+
+  .teaching-card:hover::before { height: 100%; }
+
+  .card-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ── CREATIVE ── */
+  .creative-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .tab-btn {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .tab-btn.active {
+    color: var(--ink);
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 0.75rem;
+  }
+
+  .photo-item {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .photo-item:first-child {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ddd5c0, #c4b496);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s;
+  }
+
+  .photo-placeholder:nth-child(odd) {
+    background: linear-gradient(135deg, #c8baa4, #b5a589);
+  }
+
+  .photo-item:hover .photo-placeholder {
+    transform: scale(1.04);
+  }
+
+  .photo-label {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(26,23,20,0.4);
+  }
+
+  .coding-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at bottom right, rgba(139,74,47,0.08), transparent 70%);
+  }
+
+  .project-card:hover { border-color: var(--accent-light); }
+
+  .project-lang {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-name {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .project-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-left h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-left h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-left p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 36ch;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .contact-link-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 1.2rem 1.5rem;
+    border: 1px solid var(--rule);
+    transition: all 0.25s;
+    group: true;
+  }
+
+  .contact-link-item:hover {
+    border-color: var(--accent);
+    padding-left: 2rem;
+  }
+
+  .link-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 80px;
+  }
+
+  .link-value {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .link-arrow {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .contact-link-item:hover .link-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  .contact-right {
+    padding-top: 1rem;
+  }
+
+  .booking-box {
+    border: 1px solid var(--rule);
+    padding: 3rem;
+    position: relative;
+  }
+
+  .booking-box::before {
+    content: 'BOOK A SESSION';
+    position: absolute;
+    top: -0.6rem;
+    left: 2rem;
+    background: var(--paper);
+    padding: 0 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+
+  .booking-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .booking-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .booking-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .booking-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--rule);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .booking-option:hover {
+    border-color: var(--warm-mid);
+    background: rgba(200,184,154,0.08);
+  }
+
+  .option-name {
+    font-size: 0.88rem;
+  }
+
+  .option-duration {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 6rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .footer-mono {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 2rem 3rem; }
+    .hero-right { height: 50vw; }
+    section { padding: 5rem 2rem; }
+    .teaching-grid, .coding-grid { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    .photo-grid { grid-template-columns: repeat(2,1fr); }
+    .photo-item:first-child { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#creative">Creative</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="border-top:none; padding:0;">
+  <div class="hero-left">
+    <p class="hero-eyebrow">PhD · University of Edinburgh · 2024</p>
+    <h1 class="hero-name">Your<br><em>Name</em></h1>
+    <p class="hero-title">Researcher in [Your Field]</p>
+    <p class="hero-bio">
+      I study [your research area] through the lens of [your approach]. Based in the UK, I work at the intersection of [field A] and [field B] — and photograph the spaces in between.
+    </p>
+    <div class="hero-cta">
+      <a href="#research" class="btn filled">View Research</a>
+      <a href="#contact" class="btn">Book a Session</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-placeholder">
+      <p class="placeholder-text">Your photo here</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="reveal">
+  <div class="section-header">
+    <span class="section-num">01 —</span>
+    <h2 class="section-title">Research & Publications</h2>
+  </div>
+  <div class="research-grid">
+
+    <div class="paper-item">
+      <div>
+        <p class="paper-year">2024</p>
+        <h3 class="paper-title">Your Most Recent Paper Title Goes Here: A Study of Something Interesting</h3>
+        <p class="paper-venue">Journal of Your Field, Vol. 12 · Peer-reviewed</p>
+      </div>
+      <a href="#" class="paper-link">PDF ↗</a>
+    </div>
+
+    <div class="paper-item">
+      <div>
+        <p class="paper-year">2023</p>
+        <h3 class="paper-title">Another Publication: Subtitle That Shows Your Scope</h3>
+        <p class="paper-venue">Conference Proceedings · [Conference Name]</p>
+      </div>
+      <a href="#" class="paper-link">Read ↗</a>
+    </div>
+
+    <div class="paper-item">
+      <div>
+        <p class="paper-year">2022</p>
+        <h3 class="paper-title">Earlier Work That Established Your Research Thread</h3>
+        <p class="paper-venue">Working Paper · [Institution]</p>
+      </div>
+      <a href="#" class="paper-link">PDF ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section id="teaching" class="teaching-section reveal">
+  <div class="section-header">
+    <span class="section-num">02 —</span>
+    <h2 class="section-title">Teaching</h2>
+  </div>
+  <div class="teaching-grid">
+
+    <div class="teaching-card">
+      <p class="card-tag">Undergraduate</p>
+      <h3 class="card-title">Introduction to [Your Subject]</h3>
+      <p class="card-desc">
+        A foundational course covering the core frameworks, key thinkers, and contemporary debates in [field]. Designed for students new to the discipline.
+      </p>
+      <a href="#contact" class="btn">Enquire →</a>
+    </div>
+
+    <div class="teaching-card">
+      <p class="card-tag">Postgraduate · One-to-One</p>
+      <h3 class="card-title">Dissertation & Writing Support</h3>
+      <p class="card-desc">
+        Personalised sessions for MA and PhD students on research design, academic writing, and argument structure. Tailored to your specific project.
+      </p>
+      <a href="#contact" class="btn filled">Book a Session →</a>
+    </div>
+
+    <div class="teaching-card">
+      <p class="card-tag">Reading Group</p>
+      <h3 class="card-title">[Your Field] Reading Circle</h3>
+      <p class="card-desc">
+        Monthly informal sessions for students and early-career researchers. We read and discuss key texts together — no background required.
+      </p>
+      <a href="#" class="btn">Join Mailing List →</a>
+    </div>
+
+    <div class="teaching-card">
+      <p class="card-tag">Public Lecture</p>
+      <h3 class="card-title">Available for Guest Lectures</h3>
+      <p class="card-desc">
+        I give talks on [topic A], [topic B], and the broader questions around [your field]. Open to university, cultural institution, and community contexts.
+      </p>
+      <a href="#contact" class="btn">Get in Touch →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CREATIVE -->
+<section id="creative" class="reveal">
+  <div class="section-header">
+    <span class="section-num">03 —</span>
+    <h2 class="section-title">Creative Work</h2>
+  </div>
+
+  <div class="creative-tabs">
+    <button class="tab-btn active" onclick="switchTab('photography', this)">Photography</button>
+    <button class="tab-btn" onclick="switchTab('coding', this)">Vibe Coding</button>
+    <button class="tab-btn" onclick="switchTab('github', this)">GitHub</button>
+  </div>
+
+  <div id="tab-photography" class="tab-panel active">
+    <div class="photo-grid">
+      <div class="photo-item">
+        <div class="photo-placeholder" style="background: linear-gradient(135deg,#d4c4a0,#b8a47e);">
+          <span class="photo-label">Featured Series</span>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder" style="background: linear-gradient(135deg,#c0b598,#a89070);">
+          <span class="photo-label">Urban</span>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder" style="background: linear-gradient(135deg,#d8cbb0,#c4b090);">
+          <span class="photo-label">Portrait</span>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder" style="background: linear-gradient(135deg,#b8aa90,#a09278);">
+          <span class="photo-label">Landscape</span>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder" style="background: linear-gradient(135deg,#ccc0a0,#b0a082);">
+          <span class="photo-label">Documentary</span>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:1.5rem; font-size:0.8rem; color:var(--muted); font-family:var(--mono); letter-spacing:0.08em;">
+      → Full gallery on Instagram &nbsp;·&nbsp; Prints available on request
+    </p>
+  </div>
+
+  <div id="tab-coding" class="tab-panel">
+    <div class="coding-grid">
+      <div class="project-card">
+        <p class="project-lang">React · Claude API</p>
+        <h3 class="project-name">Project Name One</h3>
+        <p class="project-desc">A brief description of what this tool does, who it's for, and what problem it solves. Built during a weekend.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-lang">HTML · CSS</p>
+        <h3 class="project-name">Project Name Two</h3>
+        <p class="project-desc">Something you made with vibe coding. Could be a data visualisation, a text tool, a small game — whatever sparked your curiosity.</p>
+      </div>
+      <div class="project-card">
+        <p class="project-lang">Python · Notebook</p>
+        <h3 class="project-name">Research Data Tool</h3>
+        <p class="project-desc">A script or notebook that supported your doctoral research. Shows the computational side of humanities work.</p>
+      </div>
+      <div class="project-card" style="border-style:dashed; display:flex; align-items:center; justify-content:center;">
+        <p style="font-family:var(--serif); font-style:italic; color:var(--muted); font-size:0.9rem;">More coming soon...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-github" class="tab-panel">
+    <div style="padding: 4rem 2rem; text-align:center; border: 1px solid var(--rule);">
+      <p style="font-family:var(--mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">Open Source Work</p>
+      <p style="font-family:var(--serif); font-size:1.8rem; font-weight:300; margin-bottom:1rem;">github.com/<em style="font-style:italic; color:var(--accent);">yourusername</em></p>
+      <p style="font-size:0.85rem; color:var(--muted); max-width:40ch; margin:0 auto 2rem;">All my public repositories, experiments, and open-source contributions live here. From academic tools to personal projects.</p>
+      <a href="https://github.com" class="btn filled" target="_blank">View GitHub Profile ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-top: 1px solid var(--rule); padding: 7rem 6rem;" class="reveal">
+  <div class="contact-section">
+    <div class="contact-left">
+      <h2>Let's<br><em>connect.</em></h2>
+      <p>Whether you're a student looking for supervision, a colleague with shared interests, or an institution seeking a speaker — I'd love to hear from you.</p>
+      <div class="contact-links">
+        <a href="mailto:you@university.ac.uk" class="contact-link-item">
+          <span class="link-label">Email</span>
+          <span class="link-value">you@university.ac.uk</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a href="#" class="contact-link-item">
+          <span class="link-label">Academia</span>
+          <span class="link-value">yourname.academia.edu</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a href="#" class="contact-link-item">
+          <span class="link-label">Twitter/X</span>
+          <span class="link-value">@yourhandle</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a href="#" class="contact-link-item">
+          <span class="link-label">GitHub</span>
+          <span class="link-value">github.com/yourusername</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="booking-box">
+        <h3 class="booking-title">Book a Teaching Session</h3>
+        <p class="booking-desc">
+          One-to-one sessions for students and early-career researchers. Select a session type below and I'll send you available times via Calendly.
+        </p>
+        <div class="booking-options">
+          <div class="booking-option">
+            <span class="option-name">Dissertation Consultation</span>
+            <span class="option-duration">60 min</span>
+          </div>
+          <div class="booking-option">
+            <span class="option-name">Writing Feedback Session</span>
+            <span class="option-duration">45 min</span>
+          </div>
+          <div class="booking-option">
+            <span class="option-name">Research Methods Q&A</span>
+            <span class="option-duration">30 min</span>
+          </div>
+        </div>
+        <a href="https://calendly.com" class="btn filled" target="_blank" style="width:100%; text-align:center; display:block;">
+          Open Booking Calendar →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Your Name</span>
+  <span class="footer-mono">PhD · [Your University] · [Your City], UK</span>
+  <span class="footer-mono">© 2025</span>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
